@@ -2,7 +2,9 @@
   "name": "@bauheaven/baustyle-react",
   "description": "React components for building UIs with BauStyle",
   "version": "0.3.1",
-  "private": false,
+  "publishConfig": {
+    "access": "public"
+  },
   "main": "src/index.ts",
   "scripts": {
     "test": "jest",
@@ -38,5 +40,5 @@
     "styled-system": "^5.1.5"
   },
   "license": "Apache-2.0",
-  "gitHead": "35c41ea7656f13628c0fd5b3c9bb536baa678f34"
+  "gitHead": "012905660266db3ef3a38e1bd7627cfd860e346a"
 }
