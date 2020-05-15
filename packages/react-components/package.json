@@ -1,8 +1,8 @@
 {
-  "name": "tree",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "@thumbtack/thumbprint-react",
+  "description": "React components for building UIs with Thumbprint",
+  "version": "0.0.1",
+  "main": "src/index.ts",
   "scripts": {
     "test": "jest",
     "storybook": "start-storybook"
