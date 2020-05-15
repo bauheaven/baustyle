@@ -33,7 +33,6 @@ describe('Tree Basic', () => {
        }) 
 
        test('child node fires an optional onNodeClick', () => {
-
         
         const handleCheck = jest.fn();
 
@@ -50,9 +49,6 @@ describe('Tree Basic', () => {
         const {childs, label, node} = handleCheck.mock.calls[0][1]
         
         expect({childs, label, node}).toStrictEqual({childs: [{label:`tree_node child 1 1`}], label:`tree node 1`, node: `node`})
-
-        
-  
 
        }) 
 })
