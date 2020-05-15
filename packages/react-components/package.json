@@ -1,6 +1,6 @@
 {
-  "name": "@thumbtack/thumbprint-react",
-  "description": "React components for building UIs with Thumbprint",
+  "name": "@bauheaven/baustyle-react",
+  "description": "React components for building UIs with BauStyle",
   "version": "0.0.1",
   "main": "src/index.ts",
   "scripts": {
