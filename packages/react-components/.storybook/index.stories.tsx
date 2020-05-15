@@ -8,8 +8,6 @@ const theme = {
   text: "#000",
   space: [0, 2, 4, 8, 16, 32],
   colors: {
-    blue: '#07c',
-    tomato: 'tomato',
     purple: 'purple'
   },
   treeNode: {
