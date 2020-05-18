@@ -12,5 +12,9 @@
   ],
   "dependencies": {
     "jest": "^26.0.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bauheaven/baustyle.git"
   }
 }

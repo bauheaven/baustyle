@@ -5,10 +5,17 @@
   "publishConfig": {
     "access": "public"
   },
-  "main": "src/index.ts",
+  "files": [
+    "build"
+  ],
+  "main": "build/lib/index.js",
   "scripts": {
     "test": "jest",
-    "storybook": "start-storybook"
+    "storybook": "start-storybook",
+    "buildTypeDecls": "tsc --project ./tsconfig.types.json",
+    "buildJsFiles": "rollup -c=./rollup.config.js",
+    "clear": "rm -rf dist",
+    "build": "yarn clear && yarn buildJsFiles && yarn buildTypeDecls && yarn buildTypeDecls --outDir ./dist/cjs"
   },
   "author": "",
   "devDependencies": {
