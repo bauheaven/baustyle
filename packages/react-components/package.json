@@ -1,7 +1,7 @@
 {
   "name": "@bauheaven/baustyle-react",
   "description": "React components for building UIs with BauStyle",
-  "version": "0.4.3",
+  "version": "0.4.4",
   "publishConfig": {
     "access": "public"
   },
