@@ -1,7 +1,7 @@
 {
   "name": "@bauheaven/baustyle-react",
   "description": "React components for building UIs with BauStyle",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "publishConfig": {
     "access": "public"
   },
@@ -26,8 +26,10 @@
     "@storybook/addon-info": "^5.3.18",
     "@storybook/react": "^5.3.18",
     "@types/jest": "^25.2.1",
+    "@types/styled-system": "^5.1.9",
     "babel-jest": "^26.0.1",
     "babel-loader": "^8.1.0",
+    "emotion-theming": "^10.0.27",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.2",
     "jest": "^26.0.1",
@@ -35,9 +37,7 @@
     "react-test-renderer": "^16.13.1",
     "ts-jest": "^25.5.1",
     "ts-loader": "^7.0.4",
-    "typescript": "^3.9.2",
-    "emotion-theming": "^10.0.27",
-    "@types/styled-system": "^5.1.9"
+    "typescript": "^3.9.2"
   },
   "dependencies": {
     "@emotion/core": "^10.0.28",
