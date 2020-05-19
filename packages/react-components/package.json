@@ -1,7 +1,7 @@
 {
   "name": "@bauheaven/baustyle-react",
   "description": "React components for building UIs with BauStyle",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "publishConfig": {
     "access": "public"
   },
@@ -41,11 +41,10 @@
     "typescript": "^3.9.2"
   },
   "dependencies": {
+    "@emotion/core": "^10.0.28",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "styled-system": "^5.1.5",
-    "@emotion/core": "^10.0.28"
-
+    "styled-system": "^5.1.5"
   },
   "license": "Apache-2.0",
   "gitHead": "67ce882f8e77758185dd3768d6a1f1158c87cef1"
