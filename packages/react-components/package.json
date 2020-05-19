@@ -23,7 +23,6 @@
     "@babel/preset-env": "^7.9.6",
     "@babel/preset-react": "^7.9.4",
     "@babel/preset-typescript": "^7.9.0",
-    "@emotion/styled": "^10.0.27",
     "@storybook/addon-info": "^5.3.18",
     "@storybook/react": "^5.3.18",
     "@types/jest": "^25.2.1",
@@ -42,6 +41,7 @@
   },
   "dependencies": {
     "@emotion/core": "^10.0.28",
+    "@emotion/styled": "^10.0.27",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "styled-system": "^5.1.5"
