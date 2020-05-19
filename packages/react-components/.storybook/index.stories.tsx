@@ -38,3 +38,7 @@ export const SimpleTree:  React.FC = () =>
 
   export const SimpleTreeDark:  React.FC = () => 
   (<ThemeProvider theme={{...theme, background:"#000", text:"#fff"}}><Tree  {...{tree}} /></ThemeProvider>)
+
+
+  export const ThemelessTree:  React.FC = () => 
+  (<Tree  {...{tree}} />)
