@@ -14,8 +14,9 @@
     "storybook": "start-storybook",
     "buildTypeDecls": "tsc --project ./tsconfig.types.json",
     "buildJsFiles": "rollup -c=./rollup.config.js",
-    "clear": "rm -rf dist",
-    "build": "yarn clear && yarn buildJsFiles && yarn buildTypeDecls && yarn buildTypeDecls --outDir ./dist/cjs"
+    "clear": "rm -rf build",
+    "build": "yarn clear && tsc",
+    "watch": "tsc -w"
   },
   "author": "",
   "devDependencies": {
@@ -42,8 +43,13 @@
   "dependencies": {
     "@emotion/core": "^10.0.28",
     "@emotion/styled": "^10.0.27",
+    "@styled-icons/boxicons-regular": "^10.0.0",
+    "@styled-icons/boxicons-solid": "^10.0.0",
+    "@styled-icons/styled-icon": "^10.0.0",
+    "@types/styled-components": "^5.1.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "styled-components": "^5.1.1",
     "styled-system": "^5.1.5"
   },
   "license": "Apache-2.0",

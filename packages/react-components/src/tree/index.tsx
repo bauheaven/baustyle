@@ -46,19 +46,26 @@ const treeNode = variant({
 })
 
 enum TreeNodeActionTypes {
-    TOGGLE_CHILD = 'TOGGLE_CHILD'
+    TOGGLE_CHILD = 'TOGGLE_CHILD',
+    UPDATE_NODE = 'UPDATE_NODE'
 }
 
-interface Action {
-    type: TreeNodeActionTypes
-}
+interface Action<T = any> {
+    type: T
+    props?: TreeNodeProps
+
+  }
+
 
 const toggleChild = (): Action => ({type: TreeNodeActionTypes.TOGGLE_CHILD})
+const updateNode = (props: TreeNodeProps): Action => ({type: TreeNodeActionTypes.UPDATE_NODE, props})
 
 const reducer = (state: TreeNodeProps, action: Action): TreeNodeProps => {
     switch(action.type){
         case TreeNodeActionTypes.TOGGLE_CHILD:
             return {...state, visible: !state.visible}
+        case TreeNodeActionTypes.UPDATE_NODE:
+            return action.props? {...action.props} : state
         default:
             return state
     }
@@ -68,11 +75,11 @@ const reducer = (state: TreeNodeProps, action: Action): TreeNodeProps => {
 
 
 export const TreeNodeLabel: React.FC<StyledTreeNodeLabelProps> = ({className, ...props}) => {
-    const {onToggle, onNodeClick, label} = props
+    const {onToggle, node, onNodeClick, label} = props
     
-    const onClick = (e: React.MouseEvent) => { 
-        onToggle(); 
-        onNodeClick ? onNodeClick(e, props) : undefined 
+    const onClick = (e: React.MouseEvent) => {
+        if(node === "node") onToggle()
+        if(onNodeClick) onNodeClick(e, props)
     }
 
     return <div className={className} onClick={onClick}>{label}</div>
@@ -89,24 +96,31 @@ const StyledTreeNodeLabel = styled(TreeNodeLabel)(
   )
 
 
-export const TreeNode: React.FC<StyledTreeNodeProps> = (props: StyledTreeNodeProps) => {
+export const InTreeNode: React.FC<StyledTreeNodeProps> = (props: StyledTreeNodeProps) => {
 
-    const [state, dispatch] = React.useReducer<typeof reducer>(reducer, props)
+    const [state, dispatch] = React.useState({visible: false, ...props})
+    React.useEffect(() => {
+        
+        if (props.childs?.length !== state.childs?.length) {
+            dispatch({...state, childs: props.childs})
+        }
+    }, [props])
+
     return <div className={props.className} >
         
-        <StyledTreeNodeLabel {...{...state, onToggle: () => dispatch(toggleChild()) }}/>
+        <StyledTreeNodeLabel {...{...state, onToggle: () => dispatch(({...state, visible: !state.visible})) }}/>
             
         {state.visible && state.childs 
             ? state.childs.map((n, i) => {
                 const node = n.childs ? "node" : n.onNodeClick ? "active-leaf" : "leaf"
-                return <StyledTreeNode node={node} key={i} {...n} level={props.level + 1} ml={3} />
+                return <StyledTreeNode node={node} key={i} {...n} level={props.level + 1} />
             })
             : null 
         }
     </div>
 }
 
-const StyledTreeNode = styled(TreeNode)(
+const StyledTreeNode = styled(InTreeNode)(
     color,
     space,
     treeNode
@@ -126,3 +140,6 @@ const Tree: React.FC<StyledTreeProps> = ({tree, className}: StyledTreeProps) => 
 const StyledTree = styled(Tree)(color, space)
 
 export default StyledTree
+
+
+export const TreeNode = StyledTreeNode

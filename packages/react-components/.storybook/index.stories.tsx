@@ -1,6 +1,11 @@
 import * as React from 'react';
-import Tree from '../src/tree';
-import { ThemeProvider } from 'emotion-theming'
+import Tree from '../src/tree/old.index';
+import Select from '../src/select'
+import {ChevronDown} from "@styled-icons/boxicons-solid"
+import {Check} from "@styled-icons/boxicons-regular"
+import { ThemeProvider } from 'styled-components';
+
+
 
 export default { title: 'Tree' };
 const theme = {
@@ -8,7 +13,10 @@ const theme = {
   text: "#000",
   space: [0, 2, 4, 8, 16, 32],
   colors: {
-    purple: 'purple'
+    
+    primary: 'red',
+    secondary: 'green',
+    pur: 'purple'
   },
   treeNode: {
     "node": {
@@ -20,7 +28,27 @@ const theme = {
     "leaf": {
       cursor: 'default'
     }
+  },
+  select: {
+    primary: {
+      color: 'white',
+      bg: 'primary',
+      '&:hover': {
+        color: 'gray'
+      },
+      'option': {
+        color: 'red'
+      }
+    },
+    secondary: {
+      color: 'white',
+      bg: 'secondary',
+    },
+    main: {
+      bg: 'pur',
+    }
   }
+
 }
 
 const tree = [
@@ -42,3 +70,26 @@ export const SimpleTree:  React.FC = () =>
 
   export const ThemelessTree:  React.FC = () => 
   (<Tree  {...{tree}} />)
+
+
+const options = [{value: 'de', text: 'Deutsch'}, {value: 'en', text: 'English'}, {value: 'ru', text: 'Русский'}]
+
+
+
+export const SelectDemo: React.FC = () =>{
+  const [defaultValue, setDefaultValue] = React.useState<string|undefined>(undefined)
+  return (<ThemeProvider theme={theme}><Select 
+    variant="secondary" 
+    onChange={(e: React.SyntheticEvent) => {
+      
+      setDefaultValue((e.target as HTMLOptionElement).value)
+      
+      }} 
+    defaultValue={defaultValue}
+    ActiveIcon={Check} 
+    SelectIcon={ChevronDown}>
+      {options.map((o, i) => <option value={o.value}>{o.text}</option>)}
+    </Select>
+    </ThemeProvider>)
+  
+}
