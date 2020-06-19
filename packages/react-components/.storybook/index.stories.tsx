@@ -3,9 +3,22 @@ import Tree from '../src/tree/old.index';
 import Select from '../src/select'
 import {ChevronDown} from "@styled-icons/boxicons-solid"
 import {Check} from "@styled-icons/boxicons-regular"
-import { ThemeProvider } from 'styled-components';
+import { ThemeProvider, keyframes, css } from 'styled-components';
 
+const fadeIn  = keyframes`
+  from {
+    opacity: 0.5;
+    transform: scale(0.9)
+  }
+  to {
+    opacity: 1;
+    transform: scale(2.05)
+  }
+`
 
+const animatedOptions = css`
+        animation: ${fadeIn} 1s ease;        
+`
 
 export default { title: 'Tree' };
 const theme = {
@@ -15,6 +28,10 @@ const theme = {
   colors: {
     
     primary: 'red',
+    text: "#222",
+    background: '#ccc',
+    hover: '#b2cbf97a',
+    hover2: '#7ae873',
     secondary: 'green',
     pur: 'purple'
   },
@@ -31,18 +48,21 @@ const theme = {
   },
   select: {
     primary: {
-      color: 'white',
       bg: 'primary',
-      '&:hover': {
-        color: 'gray'
+      '.options': {
+        '& .option': {
+            '&:hover': {
+                bg: 'hover2'
+            },
+          },
       },
-      'option': {
-        color: 'red'
-      }
     },
     secondary: {
-      color: 'white',
+      color: 'pur',
       bg: 'secondary',
+      '.options': {
+        boxShadow: "2px 2px 2px 2px #ccc"
+      }
     },
     main: {
       bg: 'pur',
@@ -72,14 +92,14 @@ export const SimpleTree:  React.FC = () =>
   (<Tree  {...{tree}} />)
 
 
-const options = [{value: 'de', text: 'Deutsch'}, {value: 'en', text: 'English'}, {value: 'ru', text: 'Русский'}]
-
+const options = [{value: 'de', text: 'Deutsch'}, {value: 'en', text: 'English'}, {value: 'ru', text: 'Русский'}, {value: 've', text: 'Some Very Long named Language'}]
 
 
 export const SelectDemo: React.FC = () =>{
   const [defaultValue, setDefaultValue] = React.useState<string|undefined>(undefined)
+
   return (<ThemeProvider theme={theme}><Select 
-    variant="secondary" 
+    
     onChange={(e: React.SyntheticEvent) => {
       
       setDefaultValue((e.target as HTMLOptionElement).value)

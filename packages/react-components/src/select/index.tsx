@@ -1,6 +1,7 @@
 import * as React from 'react';
-import styled, {keyframes} from 'styled-components'
-import { space, SpaceProps, variant, VariantArgs, layout, color } from 'styled-system'
+import styled, {keyframes, css} from 'styled-components'
+import { space, SpaceProps, variant, VariantArgs, layout, color, ColorProps } from 'styled-system'
+
 
 
 const fadeIn  = keyframes`
@@ -14,13 +15,13 @@ const fadeIn  = keyframes`
   }
 `
 
-const SelectOptionsWrapper = styled.div`
-  position: absolute;
-  transition: background .3s ease;
-  background: #ccc;
-  border-radius: 3px;
-  animation: ${fadeIn} 0.2s ease;
+const animatedOptions = css`
+        animation: ${fadeIn} 0.2s ease;        
 `
+
+
+
+
 
 
 const SelectOptions: React.FC<{onClose: () => void}> =  ({children, onClose}) => {
@@ -42,50 +43,55 @@ const SelectOptions: React.FC<{onClose: () => void}> =  ({children, onClose}) =>
 
   }, [])
 
-  return <SelectOptionsWrapper  ref={ref}>{children}</SelectOptionsWrapper>
+  return <div className="options" ref={ref}>{children}</div>
 
 } 
 
 
-
-const DefaultOption = styled.div`
-position: absolute;
- display: flex;
- svg {
-  cursor: pointer;
-   &:hover {
-     color: #ccc;
-   }
- }
- `
-
-
  const SelectWrapper =  styled.div`
-  position: relative;
-  display: inline-flex;
-  .option {
-    display: flex; 
-    cursor: pointer;
-    &:hover {
-        background: #ddd
+    .options {
+        ${animatedOptions}
     }
-  }
-  svg {
-    width: 15px;
-  }
-  ${variant({
-    variants: {
-      primary: {
-        color: 'white',
-        bg: 'primary',
-       
-      },
-      secondary: {
-        color: 'white',
-        bg: 'secondary',
-      },
-    }
-  })}
+    
+  ${({theme}) => ({
+    position: 'relative',
+    display: 'inline-flex',  
+    background: theme.colors.bg,
+    option: {
+        padding:theme.space[0]
+    },
+    '.default': {
+        position: 'absolute',
+        display: 'flex',
+        svg: {
+            cursor: 'pointer',
+            '&:hover': {
+                color: 'secondary'
+            }
+        },
+        padding: theme.space[1]
+
+    },
+    '.options': {
+        position: 'absolute',
+        'border-radius': theme.space[1],
+        '& .option': {
+            color: theme.colors.text,
+            display: 'flex',
+            cursor: 'pointer',
+            transition: 'background .3s ease',
+            '&:hover': {
+                background: theme.colors.hover
+            },
+            padding: theme.space[1]
+        }
+    },
+    
+    'svg': {
+        width: theme.space[4]
+    },
+    
+})}
 `
 interface Base {
     className?: string
@@ -99,7 +105,7 @@ interface SelectProps extends Base {
     ActiveIcon: React.FC
 }
 
-const Select: React.FC<SelectProps>  = ({children, onChange, defaultValue, defaultText, SelectIcon, ActiveIcon }) => {
+const Select: React.FC<SelectProps>  = ({className, children, onChange, defaultValue, defaultText, SelectIcon, ActiveIcon }) => {
 
     const [modal, setModal] = React.useState(false)
   
@@ -115,7 +121,7 @@ const Select: React.FC<SelectProps>  = ({children, onChange, defaultValue, defau
     
     const selectOptions = [
         defaultValue
-            ? <div  key="default"  {...{className: 'active option', onClick: toggleModal}}>{activeOption}</div>
+            ? <div  key="default"  {...{className: 'option', onClick: toggleModal}}>{activeOption}<ActiveIcon /></div>
             : null,
         ...childrenArray
           .filter(({props}) => props.value !== defaultValue)
@@ -126,50 +132,16 @@ const Select: React.FC<SelectProps>  = ({children, onChange, defaultValue, defau
 
     const options = modal
     ? <SelectOptions onClose={toggleModal}>{selectOptions}</SelectOptions>
-    : <DefaultOption>{activeOption}</DefaultOption>
+    : <div className="default">{activeOption}<SelectIcon onClick={toggleModal} /></div>
   
-    return <SelectWrapper>{options}</SelectWrapper>
+    return <SelectWrapper  className={className}>{options}</SelectWrapper>
     
 }
 
 
 
-const SelectPure: React.FC<SelectProps> = ({children, className, onChange, defaultValue, defaultText, SelectIcon, ActiveIcon}) => {
 
-    const [modal, setModal] = React.useState(false)
-  
-    const toggleModal = () => setModal(!modal)
-    
-    if (children === null || children === undefined) return null
-
-    const childrenArray = React.Children.toArray(children) as React.ReactElement[]
-
-    const activeOption =  defaultValue
-    ? childrenArray.filter(({props}) => props.value === defaultValue)
-    : defaultText
-    
-    const selectOptions = [
-        defaultValue
-            ? <div  key="default"  {...{className: 'active option', onClick: toggleModal}}>{activeOption}<ActiveIcon /></div>
-            : null,
-        ...childrenArray
-          .filter(({props}) => props.value !== defaultValue)
-          .map(node => React.cloneElement(node, {className: 'option', onClick: (e: React.SyntheticEvent) => {
-            onChange?.(e)
-            toggleModal()
-          }}))]
-
-    const options = modal
-    ? <SelectOptions onClose={toggleModal}>{selectOptions}</SelectOptions>
-    : <DefaultOption>{activeOption}<SelectIcon onClick={toggleModal} /></DefaultOption>
-  
-    return <SelectWrapper className={className}>{options}</SelectWrapper>
-    
-}
-
-const Box = styled(SelectPure)`
-margin: 10px;
-padding: 40px;
+const StyledSelect = styled(Select)`
 ${variant({
     scale: 'select',
     variants: {
@@ -178,8 +150,8 @@ ${variant({
 })}
 ${color}
 `
-Box.defaultProps = {
+StyledSelect.defaultProps = {
     variant: 'primary',
 }
 
-export default Box
+export default StyledSelect
