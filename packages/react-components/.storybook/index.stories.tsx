@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Tree from '../src/tree/old.index';
+import Tree from '../src/tree';
 import Select from '../src/select'
 import {ChevronDown} from "@styled-icons/boxicons-solid"
 import {Check} from "@styled-icons/boxicons-regular"

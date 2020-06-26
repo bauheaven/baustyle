@@ -53,45 +53,48 @@ const SelectOptions: React.FC<{onClose: () => void}> =  ({children, onClose}) =>
         ${animatedOptions}
     }
     
-  ${({theme}) => ({
-    position: 'relative',
-    display: 'inline-flex',  
-    background: theme.colors.bg,
-    option: {
-        padding:theme.space[0]
-    },
-    '.default': {
-        position: 'absolute',
-        display: 'flex',
-        svg: {
-            cursor: 'pointer',
-            '&:hover': {
-                color: 'secondary'
-            }
-        },
-        padding: theme.space[1]
-
-    },
-    '.options': {
-        position: 'absolute',
-        'border-radius': theme.space[1],
-        '& .option': {
-            color: theme.colors.text,
-            display: 'flex',
-            cursor: 'pointer',
-            transition: 'background .3s ease',
-            '&:hover': {
-                background: theme.colors.hover
-            },
-            padding: theme.space[1]
-        }
-    },
-    
-    'svg': {
-        width: theme.space[4]
-    },
-    
-})}
+  ${({theme}) => {
+    console.log('theme', theme)
+    return {
+      position: 'relative',
+      display: 'inline-flex',  
+      background: theme.colors.bg,
+      option: {
+          padding:theme.space[0]
+      },
+      '.default': {
+          position: 'absolute',
+          display: 'flex',
+          svg: {
+              cursor: 'pointer',
+              '&:hover': {
+                  color: 'secondary'
+              }
+          },
+          padding: theme.space[1]
+  
+      },
+      '.options': {
+          position: 'absolute',
+          'border-radius': theme.space[1],
+          '& .option': {
+              color: theme.colors.text,
+              display: 'flex',
+              cursor: 'pointer',
+              transition: 'background .3s ease',
+              '&:hover': {
+                  background: theme.colors.hover
+              },
+              padding: theme.space[1]
+          }
+      },
+      
+      'svg': {
+          width: theme.space[4]
+      },
+      
+  }
+  } }
 `
 interface Base {
     className?: string

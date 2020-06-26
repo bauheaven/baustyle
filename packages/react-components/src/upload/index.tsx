@@ -3,41 +3,62 @@ import {Button} from "../index"
 
 
 export declare interface UploadFile {
+    name: string,
     file: File
 }
 
-const preFetch = (filelist: FileList | null): UploadFile[] => filelist 
-    ? Array.from(filelist).map(file => ({file})) 
+const preFetch = (filelist: FileList | null): FileImageUrl[] => filelist 
+    ? Array.from(filelist).map(file => ({name: escape(file.name), url: URL.createObjectURL(file), file})) 
     : []
 
 
 const Empty:  React.FC<any> = () => <div>no files</div>
-const Thumbs: React.FC<any> = ({files}:{files: UploadFile[]}) => {
+const Thumbs: React.FC<any> = ({uploaded_image_urls, removeFile}:{uploaded_image_urls: {url: string, name: string}[], removeFile: (name: string) => void}) => {
+
+
     return <div>
-        {files.map(({file}, i) => <div key={i}><img src={URL.createObjectURL(file)} width="100" /></div>)}
+        {uploaded_image_urls.map((image, i) => <div onClick={_ => removeFile(image.name)} key={i}><img src={image.url} width="100" /></div>)}
         </div>
+}
+
+export declare interface FileImageUrl {
+    url: string, 
+    name: string, 
+    file?: File
 }
 
 export interface UploadProps  {
-    blobsRegistry: (files: UploadFile[]) => void
-    origin_files?: UploadFile[]
+    uploadRegistry: (images: FileImageUrl[]) => void
+    image_urls?: FileImageUrl[]
 }
 
-const Upload = ({blobsRegistry, origin_files}: UploadProps) => {
-    const [files, setFiles] = React.useState<UploadFile[]>(origin_files ? origin_files : [])
-    React.useEffect(() => blobsRegistry(files), [files])
- 
+const Upload = React.memo(({uploadRegistry, image_urls}: UploadProps) => {
+    
+    const [uploaded_image_urls, setUploadedImageUrls] = React.useState<FileImageUrl[]>(image_urls ? image_urls : [])
+    
+    React.useEffect(() => {
+        uploadRegistry(uploaded_image_urls)
+    }, [uploaded_image_urls])
+
+    const removeFile = (name: string) => {
+        setUploadedImageUrls(uploaded_image_urls.filter((image) => image.name !== name))
+    }
+        
+
+    const uploadFiles = (filelist: FileList | null) => {
+        setUploadedImageUrls([...uploaded_image_urls, ...preFetch(filelist)])
+    }
+
+    
     return (<div>
         <label htmlFor="upload_file_input"><Button><div>upload</div></Button></label>
-        <input onChange={(e) => {
-            setFiles(preFetch(e.target.files))
-            } } name="file" id="upload_file_input" type="file" style={{display: `none`}} multiple />            
+        <input onChange={(e) => uploadFiles(e.target.files) } name="file" id="upload_file_input" type="file" style={{display: `none`}} multiple />            
 
         <div>
-            {files.length > 0 ? <Thumbs {...{files}} /> : <Empty />}
+            {uploaded_image_urls ? <Thumbs {...{uploaded_image_urls, removeFile}} /> : <Empty />}
         </div>
     </div>)
-}
+})
 
 
 

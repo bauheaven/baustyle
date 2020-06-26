@@ -49,11 +49,11 @@
     "@styled-system/css": "^5.1.5",
     "@types/styled-components": "^5.1.0",
     "@types/styled-system__css": "^5.0.11",
-    "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "styled-components": "^5.1.1",
     "styled-system": "^5.1.5"
   },
   "license": "Apache-2.0",
   "gitHead": "67ce882f8e77758185dd3768d6a1f1158c87cef1"
+  
 }
