@@ -5,7 +5,7 @@
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
-  "author": "zavalit@gmail.com",
+  "author": "vsevolod.dolgopolov@bauheaven.com",
   "module": "dist/react-components.esm.js",
   "files": [
     "dist"
