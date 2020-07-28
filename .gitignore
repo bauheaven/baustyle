@@ -5,3 +5,6 @@ node_modules
 src/icons/*.tsx
 dist
 storybook-static
+
+# Local Netlify folder
+.netlify

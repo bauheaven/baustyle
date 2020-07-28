@@ -1,9 +1,12 @@
 import { Meta, Subtitle } from '@storybook/addon-docs/blocks'
 import baustyle from '../../../imgs/baustyle.svg'
-import {Image} from '../src'
+import {Image, Box} from '../src'
 
 <Meta title="Foundations/Overview" />
 
+<Box m="40px auto" width="200px">
+  <Image width="100px" src={baustyle}/>
+</Box>
 
 
 # Baustyle
@@ -11,5 +14,16 @@ import {Image} from '../src'
 <Subtitle>
   Baustyle is a set of theme agnostic react components.
 </Subtitle>
-<Image src={baustyle}/>
 
+## What doese it build on.
+Library builds upon Typescript, React, [Styled System](https://styled-system.com/) and [Styled Components](https://styled-components.com/), and relies on a `theme` object
+extended out of [System UI Theme Specification](https://system-ui.com/theme/) 
+
+
+## Install
+
+you need already to have preinstalled `styled-components`, `styled-system` and optionally `@styled-system/css`
+
+```
+npm install @bauheaven/baustyle-react
+```
