@@ -24,7 +24,7 @@ export const Error: React.FC<StyledErrorProps> = styled(
   bottom: -1.25rem;
   font-styled: italic;
 
-  ${({ theme }) => theme.animations.shake}
+  ${({ theme }) => theme.animations && theme.animations.shake}
 
   ${css({
     fontFamily: 'body',
