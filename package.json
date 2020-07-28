@@ -2,10 +2,10 @@
   "name": "baustyle",
   "private": true,
   "devDependencies": {
-    "lerna": "^3.21.0"
+    "lerna": "^3.21.0",
+    "netlify-cli": "^2.58.0"
   },
   "workspaces": [
     "packages/*"
   ]
-
 }
