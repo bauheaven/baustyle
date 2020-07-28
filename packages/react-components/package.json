@@ -1,7 +1,7 @@
 {
   "name": "@bauheaven/baustyle-react",
   "description": "React components for building UIs with BauStyle",
-  "version": "0.1.0",
+  "version": "1.0.0-alpha.0",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -24,10 +24,10 @@
     "build-storybook": "build-storybook --docs"
   },
   "peerDependencies": {
+    "@styled-system/css": ">=5",
     "react": ">=16",
     "styled-components": ">=5",
-    "styled-system": ">=5",
-    "@styled-system/css": ">=5"
+    "styled-system": ">=5"
   },
   "husky": {
     "hooks": {
