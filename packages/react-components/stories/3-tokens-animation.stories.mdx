@@ -1,0 +1,56 @@
+import {Meta, Subtitle} from '@storybook/addon-docs/blocks'
+import {InputTransitionEasing, ShakeAnimation} from './animations';
+import {ThemeProvider} from 'styled-components';
+import theme from './themes'
+
+<Meta title="Foundations/Animation Tokens" />
+
+
+
+# Animation
+
+<Subtitle>
+    Interaction with an elements have to feel consitent throughout the complete project.
+</Subtitle>
+
+
+
+## Transitions
+
+### Input 
+```
+transition: left 0.125s cubic-bezier(0.2, 0, 0.03, 1);
+```
+<ThemeProvider theme={theme}>
+    <InputTransitionEasing />
+</ThemeProvider>
+
+
+
+## Keyframes
+
+### Input Error
+```
+@keyframes shake {
+  
+  from, to {
+    transform: translate3d(0, 0, 0);
+  }
+
+  20%, 60% {
+    transform: translate3d(-3px, 0, 0);
+  }
+
+  40%, 80% {
+    transform: translate3d(3px, 0, 0);
+  }
+}
+ 
+animation: shake 0.3s ease;
+```
+
+<ThemeProvider theme={theme}>
+    <ShakeAnimation>Wrong input</ShakeAnimation>
+</ThemeProvider>
+
+

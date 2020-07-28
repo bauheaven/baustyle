@@ -1,0 +1,75 @@
+{
+  "name": "@bauheaven/baustyle-react",
+  "description": "React components for building UIs with BauStyle",
+  "version": "0.1.0",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "author": "zavalit@gmail.com",
+  "module": "dist/react-components.esm.js",
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=10"
+  },
+  "scripts": {
+    "start": "tsdx watch",
+    "prebuild": "node ./converticons.js",
+    "build": "tsdx build",
+    "test": "jest",
+    "lint": "tsdx lint",
+    "prepare": "tsdx build",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook --docs"
+  },
+  "peerDependencies": {
+    "react": ">=16",
+    "styled-components": ">=5",
+    "styled-system": ">=5",
+    "@styled-system/css": ">=5"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "tsdx lint"
+    }
+  },
+  "prettier": {
+    "printWidth": 80,
+    "semi": true,
+    "singleQuote": true,
+    "trailingComma": "es5"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.10.5",
+    "@storybook/addon-actions": "^5.3.19",
+    "@storybook/addon-docs": "^5.3.19",
+    "@storybook/addon-info": "^5.3.19",
+    "@storybook/addon-links": "^5.3.19",
+    "@storybook/addons": "^5.3.19",
+    "@storybook/react": "^5.3.19",
+    "@styled-system/css": "^5.1.5",
+    "@types/react": "^16.9.43",
+    "@types/react-dom": "^16.9.8",
+    "@types/styled-components": "^5.1.1",
+    "@types/styled-system": "^5.1.9",
+    "babel-loader": "^8.1.0",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.2",
+    "husky": "^4.2.5",
+    "jest": "^26.1.0",
+    "jsdom": "16.3.0",
+    "jsdom-global": "3.0.2",
+    "polished": "^3.6.5",
+    "react": "^16.13.1",
+    "react-docgen-typescript-loader": "^3.7.2",
+    "react-dom": "^16.13.1",
+    "react-is": "^16.13.1",
+    "styled-components": "^5.1.1",
+    "styled-system": "^5.1.5",
+    "ts-loader": "^8.0.1",
+    "tsdx": "^0.13.2",
+    "tslib": "^2.0.0",
+    "typescript": "^3.9.6"
+  }
+}

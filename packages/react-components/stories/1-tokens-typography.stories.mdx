@@ -1,0 +1,54 @@
+import {Meta, Typeset} from '@storybook/addon-docs/blocks'
+import {ThemeProvider} from 'styled-components'
+import theme from './themes.ts'
+import {Heading, Text, Flex, Box} from '../src'
+
+
+<Meta title="Foundations/Typography Tokens" />
+
+
+
+# Typography
+
+<ThemeProvider theme={theme}>  
+
+<Box mt={4}>
+<Heading color="brand.secondary" variant="h3">Heading</Heading>
+</Box>
+<Box>
+<Heading variant="h1">({theme.fontSizes[7]}) Heading 1 </Heading>
+<Heading variant="h2">({theme.fontSizes[6]}) Heading 2 </Heading>
+<Heading variant="h3">({theme.fontSizes[5]}) Heading 3 </Heading>
+<Heading variant="h4">({theme.fontSizes[4]}) Heading 4 </Heading>
+</Box>
+
+<Box mt={4}>
+<Heading color="brand.secondary" variant="h3">Body Text</Heading>
+</Box>
+<Flex>
+    <Box>
+        <Text variant="large">({theme.fontSizes[4]}) Large Text</Text>
+        <Text variant="medium">({theme.fontSizes[3]}) Medium Text </Text>
+        <Text variant="caption">({theme.fontSizes[2]}) Caption Text </Text>
+        <Text variant="normal"> ({theme.fontSizes[1]}) Normal Text</Text>
+        <Text variant="small">({theme.fontSizes[0]}) Small Text</Text>
+    </Box>
+    <Box ml={5}>
+        <Text fontWeight="semibold" variant="large">Large Text Semibold</Text>
+        <Text fontWeight="semibold" variant="medium">Medium Text Semibold</Text>
+        <Text fontWeight="semibold" variant="caption">Caption Text Semibold</Text>
+        <Text fontWeight="semibold" variant="normal">Normal Text Semibold</Text>
+        <Text fontWeight="semibold" variant="small">Small Text Semibold</Text>
+    </Box>
+    <Box ml={5}>
+        <Text fontWeight="light" variant="large">Large Text Light</Text>
+        <Text fontWeight="light" variant="medium">Medium Text Light</Text>
+        <Text fontWeight="light" variant="caption">Caption Text Light</Text>
+        <Text fontWeight="light" variant="normal">Normal Text Light</Text>
+        <Text fontWeight="light" variant="small">Small Text Light</Text>
+    </Box>
+</Flex>
+
+</ThemeProvider>
+
+

@@ -1,0 +1,59 @@
+import {Meta, Preview, Story} from '@storybook/addon-docs/blocks'
+import {Input, Icon} from '../src'
+import {ThemeProvider} from 'styled-components'
+import theme from './themes'
+
+
+<Meta title="Components/Form/Input"/>
+
+
+# Input
+
+Form input component
+
+
+
+### Classic
+
+<Preview><Story name="Classic">
+    <Box>
+        <Input label="Your Name"><Input.Error check={/\w+/}>Name can not be empty</Input.Error></Input>
+        <Input label="Your Name" leftIcon={<Icon.Identity />}>
+            <Input.Error check={/\w+/}>Name can not be empty</Input.Error>
+        </Input>
+        <Input label="Your Name" rightIcon={<Icon.Info />}>
+            <Input.Error check={/\w+/}>Name can not be empty</Input.Error>
+        </Input>
+    </Box>
+</Story></Preview>
+
+
+### Material
+
+<Preview><Story name="Material">
+    <Box>
+        <Input  variant="material" label="Your Name"><Input.Error check={/\w+/}>Name can not be empty</Input.Error></Input>
+        <Input  variant="material" label="Your Name" leftIcon={<Icon.Identity />}>
+            <Input.Error check={/\w+/}>Name can not be empty</Input.Error>
+        </Input>
+        <Input  variant="material" label="Your Name" rightIcon={<Icon.Info />}>
+            <Input.Error check={/\w+/}>Name can not be empty</Input.Error>
+        </Input>
+    </Box>
+</Story></Preview>
+
+
+
+### Neumorphism
+
+<Preview><Story name="Neumorphism">
+    <Box>
+        <Input  variant="neumorphism" label="Your Name"><Input.Error check={/\w+/}>Name can not be empty</Input.Error></Input>
+        <Input  variant="neumorphism" label="Your Name" leftIcon={<Icon.Identity />}>
+            <Input.Error check={/\w+/}>Name can not be empty</Input.Error>
+        </Input>
+        <Input  variant="neumorphism" label="Your Name" rightIcon={<Icon.Info />}>
+            <Input.Error check={/\w+/}>Name can not be empty</Input.Error>
+        </Input>
+    </Box>
+</Story></Preview>
