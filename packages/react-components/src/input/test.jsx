@@ -56,6 +56,8 @@ describe('Input Error handling', () => {
 
     expect(wrapper.find(ErrorDummy).length).toBe(0);
 
+    wrapper.find('input').simulate('focus');
+
     wrapper.find('input').simulate('blur');
 
     expect(wrapper.find(ErrorDummy).length).toBe(0);

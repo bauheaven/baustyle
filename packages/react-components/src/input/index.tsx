@@ -40,7 +40,7 @@ const Label = styled.label`
   left: 0px;
   pointer-events: none;
 
-  transition: ${({ theme }) => theme.transitions.input};
+  transition: ${({ theme }) => theme.transitions && theme.transitions.input};
   ${css({
     fontFamily: 'body',
     color: 'text.secondary',
@@ -144,7 +144,7 @@ export const InputGroup: Input<InputProps> = ({
       onChange && onChange(e);
     },
     onFocus: (e: React.FocusEvent<HTMLInputElement>) => {
-      setError(React.cloneElement(error, { value: null }));
+      error && setError(React.cloneElement(error, { value: null }));
       setFocused(true);
       onFocus && onFocus(e);
     },
