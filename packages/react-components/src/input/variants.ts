@@ -40,7 +40,7 @@ const classic = {
 
 const material = {
   marginTop: '1.75rem',
-  marginBottom: '2.25rem',
+  marginBottom: '3.0rem',
   display: 'flex',
   bg: 'bg.secondary',
   alignItems: 'center',
@@ -116,7 +116,7 @@ export default variant({
     material,
     neumorphism: {
       marginTop: '1.75rem',
-      marginBottom: '2.25rem',
+      marginBottom: '3.0rem',
       display: 'flex',
       bg: 'bg.mute',
       alignItems: 'center',

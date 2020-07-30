@@ -1,5 +1,7 @@
 # React UI Components
 
+Multivariant extendable React UI Components with focus on accebility and performance.
+
 
 ## Install
 
