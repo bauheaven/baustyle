@@ -6,7 +6,7 @@ import { Input } from './';
 import { mount as _mount } from 'enzyme';
 
 import { ThemeProvider } from 'styled-components';
-import theme from '../../stories/themes';
+import theme from '../../stories/theme';
 
 configure({ adapter: new Adapter() });
 

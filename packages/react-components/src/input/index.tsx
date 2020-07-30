@@ -218,7 +218,7 @@ export const InputGroup: Input<InputProps> = ({
         aria-invalid={isValid ? 'false' : 'true'}
         {...props}
       />
-      <Label for={inputId} className="label">
+      <Label htmlFor={inputId} className="label">
         {label}
       </Label>
       {rightIcon ? <RightIcon>{rightIcon}</RightIcon> : null}

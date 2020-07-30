@@ -2,7 +2,7 @@ import React from 'react'
 import { addParameters, addDecorator } from '@storybook/react'
 import { withA11y } from '@storybook/addon-a11y';
 import {ThemeProvider} from 'styled-components'
-import theme from '../stories/themes'
+import theme from '../stories/theme'
 import {Box} from '../src'
 
 const ThemeDecorator = (storyFn: any) => (<>
@@ -11,7 +11,7 @@ const ThemeDecorator = (storyFn: any) => (<>
     {storyFn()}
   </Box>
 </ThemeProvider>
-<ThemeProvider theme={{...theme, colors: theme.colors.mode.dark, shadows: theme.shadows.mode.dark}}>  
+<ThemeProvider theme={{...theme, colors: theme.colors.modes.dark, shadows: theme.shadows.modes.dark}}>  
   <Box bg="bg.primary" p={3}>
   {storyFn()}
   </Box>

@@ -54,7 +54,9 @@
     "@types/react-dom": "^16.9.8",
     "@types/styled-components": "^5.1.1",
     "@types/styled-system": "^5.1.9",
+    "@types/styled-system__css": "^5.0.12",
     "babel-loader": "^8.1.0",
+    "csstype": "^3.0.2",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.2",
     "husky": "^4.2.5",
@@ -72,5 +74,6 @@
     "tsdx": "^0.13.2",
     "tslib": "^2.0.0",
     "typescript": "^3.9.6"
-  }
+  },
+  "gitHead": "c5c769f2b48d117067fd67d4260ceb4718ce66e2"
 }

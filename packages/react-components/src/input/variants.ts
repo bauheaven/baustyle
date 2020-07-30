@@ -1,6 +1,6 @@
 import { variant } from 'styled-system';
 import { css } from 'styled-components';
-
+import { Theme } from '../../types/theme';
 const classic = {
   marginTop: '1.9rem',
   marginBottom: '3.0rem',
@@ -110,7 +110,7 @@ const material = {
 };
 
 export default variant({
-  scale: 'form.input',
+  scale: 'forms.input',
   variants: {
     classic,
     material,
@@ -121,7 +121,7 @@ export default variant({
       bg: 'bg.mute',
       alignItems: 'center',
       transition: css`
-        ${theme => theme.transitions && theme.transitions.input_focus}
+        ${(theme: Theme) => theme.transitions && theme.transitions.input_focus}
       `,
 
       borderRadius: '4px',
