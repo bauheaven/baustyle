@@ -6,18 +6,17 @@ import variants from './variants';
 interface ErrorProps {
   check: RegExp;
   children: React.ReactElement;
-  value?: string;
+  active?: boolean;
 }
 
 type StyledErrorProps = StyledProps<ErrorProps>;
 
 export const Error: React.FC<StyledErrorProps> = styled(
-  ({ className, check, children, value }) => {
-    return typeof value !== 'string' ? null : new RegExp(check).test(
-        value!
-      ) ? null : (
-      <div className={className}>{children}</div>
-    );
+  ({ className, children, active }) => {
+    const v = typeof active === 'boolean' ? active : false;
+
+    console.log('v', v, typeof active);
+    return v ? <div className={className}>{children}</div> : null;
   }
 )`
   position: absolute;
@@ -33,6 +32,28 @@ export const Error: React.FC<StyledErrorProps> = styled(
   })}
 `;
 Error.displayName = 'Input.Error';
+
+const checkError = (value: string, check: RegExp) => {
+  return typeof value !== 'string' ? false : !new RegExp(check).test(value);
+};
+
+export const Hint: React.FC<StyledProps<{}>> = styled(
+  ({ className, children }) => {
+    return <div className={className}>{children}</div>;
+  }
+)`
+  position: absolute;
+  bottom: -1.25rem;
+  font-style: italic;
+
+  ${css({
+    fontFamily: 'body',
+    fontSize: 0,
+    color: 'text.secondary',
+  })}
+`;
+
+Hint.displayName = 'Input.Hint';
 
 const Label = styled.label`
   position: absolute;
@@ -85,10 +106,12 @@ const Group = styled.div`
 
 type Input<P> = React.FC<P> & {
   Error: React.FC<StyledErrorProps>;
+  Hint: React.FC<StyledProps<{}>>;
 };
 
 interface InputProps
   extends StyledProps<React.InputHTMLAttributes<HTMLElement>> {
+  id?: string;
   label: string;
   leftIcon?: React.ReactNode;
   rightIcon?: React.ReactNode;
@@ -110,6 +133,7 @@ export const RightIcon = styled.div(
 );
 
 export const InputGroup: Input<InputProps> = ({
+  id,
   label,
   leftIcon,
   rightIcon,
@@ -123,6 +147,14 @@ export const InputGroup: Input<InputProps> = ({
 }) => {
   const inputRef = React.useRef<HTMLInputElement>(null);
 
+  const [inputId] = React.useState<string>(
+    id
+      ? id
+      : Math.random()
+          .toString(36)
+          .substring(7)
+  );
+
   const [value, setValue] = React.useState('');
 
   const [focused, setFocused] = React.useState(false);
@@ -131,11 +163,31 @@ export const InputGroup: Input<InputProps> = ({
     ch => typeof ch === 'object'
   );
 
-  const [error, setError] = React.useState(
-    reactChildren.find(
-      (ch: any) => (ch as JSX.Element).type.displayName === Error.displayName
-    ) as React.ReactElement
+  const [errorFn, setErrorFn] = React.useState<React.ReactElement>(
+    reactChildren.find((ch: any) => {
+      return (
+        ch.type !== undefined &&
+        (ch as JSX.Element).type.displayName === Error.displayName
+      );
+    }) as React.ReactElement
   );
+
+  const [hintFn] = React.useState<React.ReactElement>(
+    reactChildren.find((ch: any) => {
+      return (
+        ch.type !== undefined &&
+        (ch as JSX.Element).type.displayName === Hint.displayName
+      );
+    }) as React.ReactElement
+  );
+
+  const [isValid, setIsValid] = React.useState<boolean>(true);
+
+  const updateValidation = (valid: boolean) => {
+    if (!errorFn) return;
+    setIsValid(valid);
+    setErrorFn(React.cloneElement(errorFn, { active: !valid }));
+  };
 
   const props = {
     className: value && value.length > 0 ? `non-empty` : ``,
@@ -144,12 +196,13 @@ export const InputGroup: Input<InputProps> = ({
       onChange && onChange(e);
     },
     onFocus: (e: React.FocusEvent<HTMLInputElement>) => {
-      error && setError(React.cloneElement(error, { value: null }));
+      errorFn && updateValidation(true);
       setFocused(true);
       onFocus && onFocus(e);
     },
     onBlur: (e: React.FocusEvent<HTMLInputElement>) => {
-      error && setError(React.cloneElement(error, { value: e.target.value }));
+      errorFn &&
+        updateValidation(!checkError(e.target.value, errorFn.props.check));
       setFocused(false);
       onBlur && onBlur(e);
     },
@@ -159,16 +212,25 @@ export const InputGroup: Input<InputProps> = ({
   return (
     <Group className={`${className} ${focused ? 'focus' : ''}`} role="group">
       {leftIcon ? <LeftIcon className="left_icon">{leftIcon}</LeftIcon> : null}
-      <input ref={inputRef} {...props} />
-      <Label className="label">{label}</Label>
+      <input
+        id={inputId}
+        ref={inputRef}
+        aria-invalid={isValid ? 'false' : 'true'}
+        {...props}
+      />
+      <Label for={inputId} className="label">
+        {label}
+      </Label>
       {rightIcon ? <RightIcon>{rightIcon}</RightIcon> : null}
-      {error}
+      {errorFn}
+      {isValid ? hintFn : null}
       {variant === 'material' ? <MaterialBorder className="border" /> : null}
     </Group>
   );
 };
 
 InputGroup.Error = Error;
+InputGroup.Hint = Hint;
 
 export const Input = styled(InputGroup)<InputProps>(variants);
 

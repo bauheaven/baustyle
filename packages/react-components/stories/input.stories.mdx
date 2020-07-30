@@ -18,6 +18,10 @@ Form input component
 <Preview><Story name="Classic">
     <Box>
         <Input label="Your Name"><Input.Error check={/\w+/}>Name can not be empty</Input.Error></Input>
+        <Input label="Your Name" >
+            <Input.Hint check={/\w+/}>Hint text</Input.Hint>
+            <Input.Error check={/\w+/}>Name can not be empty</Input.Error>
+        </Input>
         <Input label="Your Name" leftIcon={<Icon.Identity />}>
             <Input.Error check={/\w+/}>Name can not be empty</Input.Error>
         </Input>
@@ -32,7 +36,12 @@ Form input component
 
 <Preview><Story name="Material">
     <Box>
-        <Input  variant="material" label="Your Name"><Input.Error check={/\w+/}>Name can not be empty</Input.Error></Input>
+        <Input variant="material" label="Your Name"><Input.Error check={/\w+/}>Name can not be empty</Input.Error></Input>
+        <Input variant="material" label="Your Name" >
+            <Input.Hint check={/\w+/}>Hint text</Input.Hint>
+            <Input.Error check={/\w+/}>Name can not be empty</Input.Error>
+        </Input>
+        
         <Input  variant="material" label="Your Name" leftIcon={<Icon.Identity />}>
             <Input.Error check={/\w+/}>Name can not be empty</Input.Error>
         </Input>
@@ -49,6 +58,11 @@ Form input component
 <Preview><Story name="Neumorphism">
     <Box>
         <Input  variant="neumorphism" label="Your Name"><Input.Error check={/\w+/}>Name can not be empty</Input.Error></Input>
+        <Input  variant="neumorphism" label="Your Name" >
+            <Input.Hint check={/\w+/}>Hint text</Input.Hint>
+            <Input.Error check={/\w+/}>Name can not be empty</Input.Error>
+        </Input>
+        
         <Input  variant="neumorphism" label="Your Name" leftIcon={<Icon.Identity />}>
             <Input.Error check={/\w+/}>Name can not be empty</Input.Error>
         </Input>

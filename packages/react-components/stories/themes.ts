@@ -64,7 +64,7 @@ const theme = {
           muted: '#E7E7FB',
         },
         ui: {
-          primary: '#178DCF',
+          primary:  '#1b75a7',//'#178DCF',
           secondary: '#93cef1',
           tertiary: '#338383',
           quaternary: '#FFFFFF',
@@ -79,7 +79,7 @@ const theme = {
         },
         text: {
           primary: '#262626',
-          secondary: '#757575',
+          secondary: '#4f7582',
           disabled: '#9C9C9C',
           inverse: '#FFFFFF',
           error: '#D0421B',
@@ -104,7 +104,7 @@ const theme = {
                     tertiary: '#3C3C3C',
                     quaternary: '#262626',
                     disabled: '#242424',
-                    error: '#FF4D4D',
+                    error: '#f47070',
                     success: '#1CBD00',
                   },
                   bg: {
@@ -114,10 +114,10 @@ const theme = {
                   },
                   text: {
                     primary: '#FFFFFF',
-                    secondary: '#A1A1A1',
+                    secondary: '#c2c2c2',
                     disabled: '#525252',
                     inverse: '#262626',
-                    error: '#FF4D4D',
+                    error: '#ff9797',
                     success: '#1CBD00',
                   },
                   highlights: {
@@ -146,8 +146,8 @@ export default {
   heading: {
         h1: {
             m: 0,
-            pt: 1,
-            pb: 1,
+            pt: 2,
+            pb: 2,
             
             fontFamily: 'heading',
             fontSize: 7,
@@ -156,8 +156,8 @@ export default {
         },
         h2: {
             m:0,
-            pt: 1,
-            pb: 1,
+            pt: 2,
+            pb: 2,
             
             fontFamily: 'heading',
             fontSize: 6,
@@ -166,8 +166,8 @@ export default {
         },
         h3: {
             m:0,
-            pt: 1,
-            pb: 1,
+            pt: 2,
+            pb: 2,
             
             fontFamily: 'heading',
             fontSize: 5,
@@ -176,8 +176,8 @@ export default {
         },
         h4: {
             m:0,
-            pt: 1,
-            pb: 1,
+            pt: 2,
+            pb: 2,
             
             fontFamily: 'heading',
             fontSize: 4,
@@ -188,24 +188,24 @@ export default {
     text: {
         large: {
             m:0,
-            pt: 2,
-            pb: 2,
+            pt: 3,
+            pb: 3,
             fontFamily: 'body',
             fontSize: 4
 
         },
         medium: {
             m:0,
-            pt: 2,
-            pb: 2,
+            pt: 3,
+            pb: 3,
             
             fontFamily: 'body',
             fontSize: 3
         },
         caption: {
             m:0,
-            pt: 2,
-            pb: 2,
+            pt: 3,
+            pb: 3,
             
             fontFamily: 'body',
             fontSize: 2,
@@ -213,16 +213,16 @@ export default {
         },
         normal: {
             m:0,
-            pt: 2,
-            pb: 2,
+            pt: 3,
+            pb: 3,
             
             fontFamily: 'body',
             fontSize: 1
         },
         small: {
             m:0,
-            pt: 2,
-            pb: 2,
+            pt: 3,
+            pb: 3,
             
             fontFamily: 'body',
             fontSize: 0,
@@ -231,7 +231,8 @@ export default {
         }
     },
     transitions: {
-        input: 'all 0.125s cubic-bezier(0.2, 0, 0.03, 1)'
+        input: 'all 0.125s cubic-bezier(0.2, 0, 0.03, 1)',
+        input_focus: 'all 0.5s cubic-bezier(0.2, 0, 0.03, 1)'
     },
     animations: {
       shake: css`

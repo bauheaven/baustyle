@@ -1,8 +1,9 @@
 import { variant } from 'styled-system';
+import { css } from 'styled-components';
 
 const classic = {
   marginTop: '1.9rem',
-  marginBottom: '2.25rem',
+  marginBottom: '3.0rem',
   border: 'solid',
   borderWidth: '1px',
   borderColor: 'bg.secondary',
@@ -119,6 +120,9 @@ export default variant({
       display: 'flex',
       bg: 'bg.mute',
       alignItems: 'center',
+      transition: css`
+        ${theme => theme.transitions && theme.transitions.input_focus}
+      `,
 
       borderRadius: '4px',
       boxShadow: 'input',

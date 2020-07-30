@@ -1,5 +1,6 @@
 import React from 'react'
 import { addParameters, addDecorator } from '@storybook/react'
+import { withA11y } from '@storybook/addon-a11y';
 import {ThemeProvider} from 'styled-components'
 import theme from '../stories/themes'
 import {Box} from '../src'
@@ -18,6 +19,7 @@ const ThemeDecorator = (storyFn: any) => (<>
 </>)
 
 addDecorator(ThemeDecorator)
+addDecorator(withA11y)
 
 addParameters({
   options: {
