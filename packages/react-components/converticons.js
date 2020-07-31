@@ -23,15 +23,13 @@ const reactComponent = svg => {
         .map(p => `<path ${p.join(' ')} />`)
         .join('')
 
-    const reactSVG = `<svg ${svgProps}>${reactPathes}</svg>`
+    const reactSVG = `<svg ${svgProps} ref={svgRef} {...props}>${reactPathes}</svg>`
 
     return `
-    import React from 'react';
-
-
-    export default () => ${reactSVG}
+import React, { forwardRef, SVGProps } from 'react';
     
-   `
+export default forwardRef<SVGSVGElement, SVGProps<SVGSVGElement>>((props, svgRef) => ${reactSVG})
+`
 }
 
 

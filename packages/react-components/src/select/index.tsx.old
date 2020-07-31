@@ -1,0 +1,137 @@
+import * as React from 'react';
+import styled from 'styled-components'
+import {variant,  color, layout } from 'styled-system'
+import css from '@styled-system/css'
+
+
+
+
+const SelectOptions: React.FC<{onClose: () => void}> =  ({children, onClose}) => {
+
+  const ref = React.useRef(null)
+
+  const clickListener = React.useCallback((e: MouseEvent) => {
+    if(!(ref.current! as any).contains(e.target)){
+      onClose()
+    }
+  }, [ref.current])
+
+  React.useEffect(() => {
+    document.addEventListener('click', clickListener)
+
+    return () => {
+      document.removeEventListener('click', clickListener)
+    }
+
+  }, [])
+
+  return <div className="options" ref={ref}>{children}</div>
+
+} 
+
+
+ const SelectWrapper =  styled.div(css({
+
+    position: 'relative',
+    display: 'inline-flex',  
+    alignItems: 'center',
+    
+    '.default': {
+        display: 'flex',
+        alignItems: 'center',
+        svg: {
+            cursor: 'pointer',
+            '&:hover': {
+                color: 'secondary'
+            }
+        },
+        padding: 1,    
+    },
+    '.options': {
+        position: 'absolute',
+        borderRadius: 1,
+        '& .option': {
+            color: 'text',
+            display: 'flex',
+            alignItems: 'center',
+            cursor: 'pointer',
+            transition: 'background .3s ease',
+            '&:hover': {
+                background: 'hover'
+            },
+            padding: 1
+        }
+    },    
+    'svg': {
+        width: 3,
+        height: 3
+    },
+
+ }))
+    
+    
+interface Base {
+    className?: string
+    variant?: string
+}
+interface SelectProps extends Base {
+    onChange?: (e: React.SyntheticEvent) => void
+    defaultValue?: string|number
+    defaultText?: string
+    SelectIcon: React.FC<{onClick?: (e: React.SyntheticEvent) => void }>
+    ActiveIcon: React.FC
+}
+
+const SelectComponent: React.FC<SelectProps>  = ({className, children, onChange, defaultValue, defaultText}) => {
+
+    const [modal, setModal] = React.useState(false)
+    
+    const toggleModal = () => setModal(!modal)
+    console.log('children', children)
+
+    if (children === null || children === undefined) return null
+
+    const childrenArray = React.Children.toArray(children) as React.ReactElement[]
+
+    const activeOption =  defaultValue
+    ? childrenArray.filter(({props}) => props.value === defaultValue)
+    : defaultText
+    
+    const selectOptions = [
+        defaultValue
+            ? <div   key="default"  {...{className: 'option', onClick: toggleModal}}>{activeOption}</div>
+            : null,
+        ...childrenArray
+          .filter(({props}) => props.value !== defaultValue)
+          .map(node => React.cloneElement(node, {className: 'option', onClick: (e: React.SyntheticEvent) => {
+            onChange?.(e)
+            toggleModal()
+          }}))]
+
+    const options = modal
+    ? <SelectOptions onClose={toggleModal}>{selectOptions}</SelectOptions>
+    : <div className="default">{activeOption}<div onClick={toggleModal} /></div>
+  
+  
+    return <SelectWrapper  className={className} >{options}</SelectWrapper>
+    
+}
+
+
+
+
+export const Select = styled(SelectComponent)`
+width: 100%;
+height: 100%;
+${variant({
+    scale: 'forms.select',
+    variants: {
+        k: {}
+    }
+})}
+${color}
+${layout}
+`
+Select.defaultProps = {
+    variant: 'primary',
+}

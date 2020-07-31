@@ -211,7 +211,11 @@ export const InputGroup: Input<InputProps> = ({
 
   return (
     <Group className={`${className} ${focused ? 'focus' : ''}`} role="group">
-      {leftIcon ? <LeftIcon className="left_icon">{leftIcon}</LeftIcon> : null}
+      {leftIcon ? (
+        <LeftIcon className="left_icon" aria-hidden>
+          {leftIcon}
+        </LeftIcon>
+      ) : null}
       <input
         id={inputId}
         ref={inputRef}
@@ -221,7 +225,7 @@ export const InputGroup: Input<InputProps> = ({
       <Label htmlFor={inputId} className="label">
         {label}
       </Label>
-      {rightIcon ? <RightIcon>{rightIcon}</RightIcon> : null}
+      {rightIcon ? <RightIcon aria-hidden>{rightIcon}</RightIcon> : null}
       {errorFn}
       {isValid ? hintFn : null}
       {variant === 'material' ? <MaterialBorder className="border" /> : null}
