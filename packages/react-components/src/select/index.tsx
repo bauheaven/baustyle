@@ -4,6 +4,7 @@ import { variant } from 'styled-system';
 import { Icon } from '../';
 import * as State from './state';
 import css from '@styled-system/css';
+import { Theme } from '../../types/theme';
 
 const classic = {
   fontFamily: 'body',
@@ -19,7 +20,7 @@ const classic = {
   '[role="listbox"]': {
     width: '100%',
 
-    '.expanded': {
+    '.expanded_listbox': {
       display: 'none',
       position: 'absolute',
       width: '100%',
@@ -31,11 +32,19 @@ const classic = {
 
   '&.expanded': {
     '[role="listbox"]': {
-      '.expanded': {
+      '.expanded_listbox': {
+        left: '-20px',
+        width: 'calc(100% + 20px)',
         display: 'block',
+        zIndex: 1,
+        bg: 'blue',
+
+        '[role="option"]': {
+          pl: (theme: Theme) => `${(theme.space as number[])[2] + 20}px`,
+        },
       },
-      '.non_expanded': {
-        visibility: 'invisible',
+      '.non_expanded_listbox': {
+        visibility: 'hidden',
       },
     },
   },
@@ -51,6 +60,8 @@ interface OptionProps {
 }
 
 const OptionElement: React.FC<OptionProps> = ({ className, option }) => {
+  const [, dispatch] = State.useSelectContext();
+
   const { value, label, selected } = option;
 
   return (
@@ -59,6 +70,9 @@ const OptionElement: React.FC<OptionProps> = ({ className, option }) => {
       role="option"
       data-value={value}
       aria-selected={selected}
+      onClick={_ => {
+        dispatch({ type: State.ActionType.SELECT, value });
+      }}
     >
       {label ? label : value}
     </div>
@@ -74,6 +88,8 @@ const SelectBlock: React.FC<SelectOptionProps> = ({
   selectoptions,
   placeholder,
 }) => {
+  const [{ selectId }, dispatch] = State.useSelectContext();
+
   const [selected] = selectoptions;
   const firstOption = selected.selected ? (
     <OptionElement {...{ option: selected }} />
@@ -82,14 +98,23 @@ const SelectBlock: React.FC<SelectOptionProps> = ({
   );
 
   return (
-    <div role="listbox">
-      <div className="expanded">
-        {selectoptions.map((option: Option, i: number) => (
-          <OptionElement key={i} {...{ option }} />
-        ))}
+    <>
+      <div id={selectId} role="listbox" aria-label="select">
+        <div className="expanded_listbox">
+          {selectoptions.map((option: Option, i: number) => (
+            <OptionElement key={i} {...{ option }} />
+          ))}
+        </div>
+        <div
+          className="non_expanded_listbox"
+          onClick={_ => {
+            dispatch({ type: State.ActionType.EXPAND });
+          }}
+        >
+          {firstOption}
+        </div>
       </div>
-      <div className="non_expanded">{firstOption}</div>
-    </div>
+    </>
   );
 };
 
@@ -100,6 +125,7 @@ interface Option {
 }
 
 interface BlockProps {
+  id?: string;
   options: Option[];
   defaultValue?: string;
   placeholder?: string;
@@ -107,7 +133,7 @@ interface BlockProps {
   variant?: string;
 }
 
-const IconBlock = styled.div(css({ p: 2, pb: 0 }));
+const IconBlock = styled.div(css({ p: 2, height: 2, svg: { mt: '-3px' } }));
 
 const ClickBlockWrapper: React.FC<{ className: string }> = ({
   className,
@@ -135,13 +161,12 @@ const ClickBlockWrapper: React.FC<{ className: string }> = ({
     };
   }, []);
 
+  console.log('ClickBlockWrapper state', state);
+
   return (
     <div
       ref={blockRef}
       className={`${state.expanded ? 'expanded' : ''} ${className}`}
-      onClick={() => {
-        dispatch({ type: State.ActionType.EXPAND });
-      }}
     >
       {children}
     </div>
@@ -149,6 +174,7 @@ const ClickBlockWrapper: React.FC<{ className: string }> = ({
 };
 
 const Block: React.FC<StyledProps<BlockProps>> = ({
+  id,
   className,
   defaultValue,
   options,
@@ -156,17 +182,26 @@ const Block: React.FC<StyledProps<BlockProps>> = ({
 }) => {
   const [state, dispatch] = React.useReducer(
     State.selectStateReducer,
-    State.defaultSelectContext
+    State.defaultSelectContext,
+    state => {
+      const selected = defaultValue;
+      const selectId = id
+        ? id
+        : `select_${Math.random()
+            .toString(36)
+            .substring(7)}`;
+      return { ...state, selected, selectId };
+    }
   );
 
-  const defaultOption = defaultValue
-    ? options.find(o => o.value === defaultValue)
+  const selectedOption = state.selected
+    ? options.find(o => o.value === state.selected)
     : null;
 
-  const selectoptions = defaultOption
+  const selectoptions = selectedOption
     ? [
-        { ...defaultOption, selected: true },
-        ...options.filter(o => o.value !== defaultOption.value),
+        { ...selectedOption, selected: true },
+        ...options.filter(o => o.value !== selectedOption.value),
       ]
     : options;
 
@@ -174,11 +209,14 @@ const Block: React.FC<StyledProps<BlockProps>> = ({
     <State.SelectContext.Provider value={[state, dispatch]}>
       <ClickBlockWrapper className={className}>
         <SelectBlock {...{ selectoptions, placeholder }} />
-        {!state.expanded && (
-          <IconBlock>
-            <Icon.Arrowdown />
-          </IconBlock>
-        )}
+
+        <IconBlock
+          onClick={_ => {
+            dispatch({ type: State.ActionType.EXPAND });
+          }}
+        >
+          <Icon.Arrowdown />
+        </IconBlock>
       </ClickBlockWrapper>
     </State.SelectContext.Provider>
   );

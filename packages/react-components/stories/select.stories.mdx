@@ -1,5 +1,5 @@
 import {Meta, Preview, Story} from '@storybook/addon-docs/blocks'
-import {Select, Box} from '../src'
+import {Select, Input, Box} from '../src'
 
 <Meta title="Components/Form/Select"/>
 
@@ -13,14 +13,16 @@ Form input component
 ### Classic
 
  
-<Preview><Story name="Classic">{({ id }) => {
-     
-      return (
-        <Select defaultValue="en" options={[{value: 'en', label: 'En'}, {value: 'de', label:'De'}]} />
-      );
-    }}
-   
-    
+<Preview><Story name="Classic">
+        <Box>
+            <Box mb={4}>
+                <Select defaultValue="en" options={[{value: 'en', label: 'En'}, {value: 'de', label:'De'}]} />      
+            </Box>
+            <Box mb={2}>
+                <Select options={[{value: 'en', label: 'En'}, {value: 'de', label:'De'}]} />
+                </Box>
+        </Box>
+          
     </Story></Preview>
 
 <Preview>

@@ -1,5 +1,5 @@
 import { lighten, darken } from 'polished';
-import {keyframes as styledKeyframes, css} from 'styled-components'
+import {keyframes, css} from 'styled-components'
 
 export const fonts = {
     body: '"Helvetica Neue", Roboto, sans-serif',
@@ -7,16 +7,18 @@ export const fonts = {
     monospace: 'Menlo, monospace',
   };
   
-export const fontSizes = [    
-    '0.85rem',
-    '1rem',
-    '1.125rem',
-    '1.25rem',
-    '1.50rem',
-    '1.75rem',
-    '3.5rem',
-    '5rem',
+const sizes = [    
+  '0.85rem',
+  '1rem',
+  '1.125rem',
+  '1.25rem',
+  '1.50rem',
+  '1.75rem',
+  '3.5rem',
+  '5rem',
 ];
+
+export const fontSizes = sizes
 
 export const fontWeights = {
     light: 300,
@@ -29,26 +31,35 @@ export const fontWeights = {
 export const space = [0, 4, 8, 16, 32, 64, 128, 256, 512];
 
 
-export const shakeAnimation = {
-  keyframes: `
-  from, to {
-    transform: translate3d(0, 0, 0);
-  }
-
-  20%, 60% {
-    transform: translate3d(-3px, 0, 0);
-  }
-
-  40%, 80% {
-    transform: translate3d(3px, 0, 0);
-}`,
-
-}
 const animations = {
-  shake: styledKeyframes`${shakeAnimation.keyframes}`
+  shake: keyframes`
+    from, to {
+      transform: translate3d(0, 0, 0);
+    }
+
+    20%, 60% {
+      transform: translate3d(-3px, 0, 0);
+    }
+
+    40%, 80% {
+      transform: translate3d(3px, 0, 0);
+  }`,
+
+  fadeIn: keyframes`
+    from {
+      opacity: 0.5;
+      transform: scale(0.9)
+    }
+    to {
+      opacity: 1;
+      transform: scale(1.05)
+    }`
+
+
 }
 
 const theme = {
+    sizes,
     fontSizes,
     fonts,
     fontWeights,
@@ -238,6 +249,12 @@ export default {
       shake: css`
           animation-duration: 0.3s;
           animation-name: ${animations.shake};
+          animation-timing-function: ease;
+          `,        
+
+      fadeIn: css`
+          animation-duration: 0.2s;
+          animation-name: ${animations.fadeIn};
           animation-timing-function: ease;
           `        
     }

@@ -15,10 +15,12 @@ export type PropByModes<T> = ObjectOrArray<T> & {
 
 
 
-export interface Theme extends Omit<StyledSystemTheme, 'colors' | 'shadows'> {
+export interface Theme extends Omit<StyledSystemTheme, 'colors' | 'shadows' | 'sizes'> {
 
-    colors?: PropByModes<CSS.ColorProperty>,
-    shadows?: PropByModes<CSS.BoxShadowProperty>,
+    sizes: ObjectOrArray<CSS.HeightProperty<{}> | CSS.WidthProperty<{}>>
+
+    colors?: PropByModes<CSS.ColorProperty>
+    shadows?: PropByModes<CSS.BoxShadowProperty>
   
 
     forms?: Record<string, SystemStyleObject>;

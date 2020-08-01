@@ -150,9 +150,9 @@ export const InputGroup: Input<InputProps> = ({
   const [inputId] = React.useState<string>(
     id
       ? id
-      : Math.random()
+      : `input_${Math.random()
           .toString(36)
-          .substring(7)
+          .substring(7)}`
   );
 
   const [value, setValue] = React.useState('');
