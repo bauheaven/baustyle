@@ -16,6 +16,7 @@ const classic = {
   justifyContent: 'space-between',
   '[role="option"]': {
     p: 2,
+    height: 1,
   },
   '[role="listbox"]': {
     width: '100%',
@@ -40,7 +41,17 @@ const classic = {
         bg: 'blue',
 
         '[role="option"]': {
+          position: 'relative',
           pl: (theme: Theme) => `${(theme.space as number[])[2] + 20}px`,
+          '.left_icon': {
+            position: 'absolute',
+            left: 0,
+            pl: 1,
+            mt: '-3px',
+            svg: {
+              width: '20px',
+            },
+          },
         },
       },
       '.non_expanded_listbox': {
@@ -56,10 +67,15 @@ const variants = {
 
 interface OptionProps {
   option: Option;
+  leftIcon?: JSX.Element;
   className?: string;
 }
 
-const OptionElement: React.FC<OptionProps> = ({ className, option }) => {
+const OptionElement: React.FC<OptionProps> = ({
+  className,
+  option,
+  leftIcon,
+}) => {
   const [, dispatch] = State.useSelectContext();
 
   const { value, label, selected } = option;
@@ -74,6 +90,7 @@ const OptionElement: React.FC<OptionProps> = ({ className, option }) => {
         dispatch({ type: State.ActionType.SELECT, value });
       }}
     >
+      {leftIcon ? <div className="left_icon">{leftIcon}</div> : null}
       {label ? label : value}
     </div>
   );
@@ -102,7 +119,13 @@ const SelectBlock: React.FC<SelectOptionProps> = ({
       <div id={selectId} role="listbox" aria-label="select">
         <div className="expanded_listbox">
           {selectoptions.map((option: Option, i: number) => (
-            <OptionElement key={i} {...{ option }} />
+            <OptionElement
+              key={i}
+              {...{
+                leftIcon: option.selected ? <Icon.Check /> : undefined,
+                option,
+              }}
+            />
           ))}
         </div>
         <div
