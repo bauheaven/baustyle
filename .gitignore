@@ -2,7 +2,7 @@
 .DS_Store
 node_modules
 .cache
-src/icons/*.tsx
+icons/*.tsx
 dist
 storybook-static
 
