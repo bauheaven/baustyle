@@ -1,7 +1,8 @@
 import React from 'react';
 import styled, { StyledProps } from 'styled-components';
 import { variant } from 'styled-system';
-import { Icon } from '../';
+import { Icon, SVGIcon } from '../';
+
 import * as State from './state';
 import css from '@styled-system/css';
 import { Theme } from '../../types/theme';
@@ -67,14 +68,14 @@ const variants = {
 
 interface OptionProps {
   option: Option;
-  leftIcon?: JSX.Element;
+  LeftIcon?: SVGIcon;
   className?: string;
 }
 
 const OptionElement: React.FC<OptionProps> = ({
   className,
   option,
-  leftIcon,
+  LeftIcon,
 }) => {
   const [, dispatch] = State.useSelectContext();
 
@@ -90,7 +91,11 @@ const OptionElement: React.FC<OptionProps> = ({
         dispatch({ type: State.ActionType.SELECT, value });
       }}
     >
-      {leftIcon ? <div className="left_icon">{leftIcon}</div> : null}
+      {LeftIcon ? (
+        <div className="left_icon">
+          <LeftIcon />
+        </div>
+      ) : null}
       {label ? label : value}
     </div>
   );
@@ -122,7 +127,7 @@ const SelectBlock: React.FC<SelectOptionProps> = ({
             <OptionElement
               key={i}
               {...{
-                leftIcon: option.selected ? <Icon.Check /> : undefined,
+                LeftIcon: option.selected ? Icon.Check : undefined,
                 option,
               }}
             />

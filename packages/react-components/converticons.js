@@ -39,6 +39,10 @@ const indexExports = (names) => {
 
     return `${_import}
 
+export type SVGIcon = React.ForwardRefExoticComponent<
+    React.PropsWithoutRef<React.SVGProps<SVGSVGElement>> & React.RefAttributes<SVGSVGElement>
+>
+  
 export const Icon = {
 ${names.join(`,\n`)}
 }

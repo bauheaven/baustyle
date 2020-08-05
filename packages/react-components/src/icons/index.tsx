@@ -4,6 +4,11 @@ import Identity from './Identity';
 import Info from './Info';
 import Mail from './Mail';
 
+export type SVGIcon = React.ForwardRefExoticComponent<
+  React.PropsWithoutRef<React.SVGProps<SVGSVGElement>> &
+    React.RefAttributes<SVGSVGElement>
+>;
+
 export const Icon = {
   Arrowdown,
   Check,
