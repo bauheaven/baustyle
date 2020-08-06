@@ -8,6 +8,9 @@ type ObjectOrArray<T> = T[] | {[K: string] : T | ObjectOrArray<T>}
 
 
 export type PropByModes<T> = ObjectOrArray<T> & {
+    brand: T,
+    ui: T,
+    bg: T,
     modes?: {
         [k: string]: ObjectOrArray<T>
     }
@@ -19,7 +22,7 @@ export interface Theme extends Omit<StyledSystemTheme, 'colors' | 'shadows' | '
 
     sizes: ObjectOrArray<CSS.HeightProperty<{}> | CSS.WidthProperty<{}>>
 
-    colors?: PropByModes<CSS.ColorProperty>
+    colors: PropByModes<CSS.ColorProperty>
     shadows?: PropByModes<CSS.BoxShadowProperty>
   
 

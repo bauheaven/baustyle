@@ -2,6 +2,7 @@ import React from 'react';
 
 interface SelectState {
   expanded: boolean;
+  focused: boolean;
   selectId?: string;
   selected?: string;
 }
@@ -9,15 +10,18 @@ interface SelectState {
 export enum ActionType {
   EXPAND = 'EXPAND',
   COLLAPSE = 'COLLAPSE',
+  FOCUS = 'FOCUS',
   SELECT = 'SELECT',
 }
 
 type Action =
   | { type: ActionType.EXPAND }
   | { type: ActionType.COLLAPSE }
-  | { type: ActionType.SELECT; value: string };
+  | { type: ActionType.SELECT; value: string }
+  | { type: ActionType.FOCUS };
 
 export const defaultSelectContext = {
+  focused: false,
   expanded: false,
 };
 
@@ -33,10 +37,12 @@ export const selectStateReducer = (
 ): SelectState => {
   console.log('action', action);
   switch (action.type) {
+    case ActionType.FOCUS:
+      return { ...state, focused: true };
     case ActionType.EXPAND:
-      return { ...state, expanded: true };
+      return { ...state, expanded: true, focused: false };
     case ActionType.COLLAPSE:
-      return { ...state, expanded: false };
+      return { ...state, expanded: false, focused: false };
     case ActionType.SELECT:
       return { ...state, selected: action.value, expanded: false };
   }

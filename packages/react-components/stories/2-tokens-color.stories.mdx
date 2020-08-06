@@ -122,7 +122,7 @@ Color scheme is composed for both `light` and `dark` modes.
 
 ## Dark
 <ColorPalette>
-  {palette({...theme.colors, ...theme.colors.mode.dark}).map(colorItem => (
+  {palette({...theme.colors, ...theme.colors.modes.dark}).map(colorItem => (
     <ColorItem key={colorItem.title} {...colorItem} />
   ))}
 </ColorPalette>

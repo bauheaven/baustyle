@@ -77,9 +77,10 @@ const theme = {
         ui: {
           primary:  '#1b75a7',//'#178DCF',
           secondary: '#93cef1',
-          tertiary: '#338383',
+          tertiary: '#b2d7eb',
           quaternary: '#FFFFFF',
           disabled: '#DEDEDE',
+          focus: '#1EA7FD',
           error: '#D12A2A',
           success: '#8ED690',
         },
@@ -112,9 +113,10 @@ const theme = {
                   ui: {
                     primary: '#FFFFFF',
                     secondary: '#A1A1A1',
-                    tertiary: '#3C3C3C',
+                    tertiary: '#0b0b0b',
                     quaternary: '#262626',
                     disabled: '#242424',
+                    focus: '#1EA7FD',
                     error: '#f47070',
                     success: '#1CBD00',
                   },

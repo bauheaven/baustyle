@@ -1,70 +1,9 @@
 import React from 'react';
 import styled, { StyledProps } from 'styled-components';
-import { variant } from 'styled-system';
 import { Icon, SVGIcon } from '../';
-
+import variants from './variants';
 import * as State from './state';
 import css from '@styled-system/css';
-import { Theme } from '../../types/theme';
-
-const classic = {
-  fontFamily: 'body',
-  position: 'relative',
-  color: 'text.secondary',
-  bg: 'bg.secondary',
-  display: 'flex',
-  alignItem: 'center',
-  justifyContent: 'space-between',
-  '[role="option"]': {
-    p: 2,
-    height: 1,
-  },
-  '[role="listbox"]': {
-    width: '100%',
-
-    '.expanded_listbox': {
-      display: 'none',
-      position: 'absolute',
-      width: '100%',
-      '[role="option"]:hover': {
-        bg: 'red',
-      },
-    },
-  },
-
-  '&.expanded': {
-    '[role="listbox"]': {
-      '.expanded_listbox': {
-        left: '-20px',
-        width: 'calc(100% + 20px)',
-        display: 'block',
-        zIndex: 1,
-        bg: 'blue',
-
-        '[role="option"]': {
-          position: 'relative',
-          pl: (theme: Theme) => `${(theme.space as number[])[2] + 20}px`,
-          '.left_icon': {
-            position: 'absolute',
-            left: 0,
-            pl: 1,
-            mt: '-3px',
-            svg: {
-              width: '20px',
-            },
-          },
-        },
-      },
-      '.non_expanded_listbox': {
-        visibility: 'hidden',
-      },
-    },
-  },
-};
-
-const variants = {
-  classic,
-};
 
 interface OptionProps {
   option: Option;
@@ -169,7 +108,7 @@ const ClickBlockWrapper: React.FC<{ className: string }> = ({
 }) => {
   const blockRef = React.useRef<HTMLDivElement>(null);
 
-  const [state, dispatch] = State.useSelectContext();
+  const [{ focused, expanded }, dispatch] = State.useSelectContext();
 
   const onCollapse = () => dispatch({ type: State.ActionType.COLLAPSE });
 
@@ -189,12 +128,15 @@ const ClickBlockWrapper: React.FC<{ className: string }> = ({
     };
   }, []);
 
-  console.log('ClickBlockWrapper state', state);
-
   return (
     <div
+      tabIndex={0}
       ref={blockRef}
-      className={`${state.expanded ? 'expanded' : ''} ${className}`}
+      onFocus={_ => dispatch({ type: State.ActionType.FOCUS })}
+      onBlur={_ => dispatch({ type: State.ActionType.COLLAPSE })}
+      className={`${expanded ? 'expanded ' : ''}${
+        focused ? 'focused ' : ''
+      } ${className}`}
     >
       {children}
     </div>
@@ -250,12 +192,7 @@ const Block: React.FC<StyledProps<BlockProps>> = ({
   );
 };
 
-export const Select = styled(Block)(
-  variant({
-    scale: 'forms.select',
-    variants,
-  })
-);
+export const Select = styled(Block)(variants);
 
 Select.defaultProps = {
   variant: 'classic',
