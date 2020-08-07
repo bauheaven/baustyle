@@ -3,7 +3,6 @@ import styled, { StyledProps } from 'styled-components';
 import { Icon, SVGIcon } from '../';
 import variants from './variants';
 import * as State from './state';
-import css from '@styled-system/css';
 
 interface OptionProps {
   option: Option;
@@ -42,20 +41,17 @@ const OptionElement: React.FC<OptionProps> = ({
 
 interface SelectOptionProps {
   selectoptions: Option[];
-  placeholder: string | undefined;
+  label?: string;
 }
 
-const SelectBlock: React.FC<SelectOptionProps> = ({
-  selectoptions,
-  placeholder,
-}) => {
+const SelectBlock: React.FC<SelectOptionProps> = ({ selectoptions, label }) => {
   const [{ selectId }, dispatch] = State.useSelectContext();
 
   const [selected] = selectoptions;
   const firstOption = selected.selected ? (
     <OptionElement {...{ option: selected }} />
   ) : (
-    <OptionElement {...{ option: { value: '', label: placeholder } }} />
+    <OptionElement {...{ option: { value: '', label } }} />
   );
 
   return (
@@ -84,23 +80,6 @@ const SelectBlock: React.FC<SelectOptionProps> = ({
     </>
   );
 };
-
-interface Option {
-  value: string;
-  label: string | undefined;
-  selected?: boolean;
-}
-
-interface BlockProps {
-  id?: string;
-  options: Option[];
-  defaultValue?: string;
-  placeholder?: string;
-  className: string;
-  variant?: string;
-}
-
-const IconBlock = styled.div(css({ p: 2, height: 2, svg: { mt: '-3px' } }));
 
 const ClickBlockWrapper: React.FC<{ className: string }> = ({
   className,
@@ -143,29 +122,45 @@ const ClickBlockWrapper: React.FC<{ className: string }> = ({
   );
 };
 
+interface Option {
+  value: string;
+  label: string | undefined;
+  selected?: boolean;
+}
+
+interface BlockProps {
+  id?: string;
+  options: Option[];
+  defaultValue?: string;
+  label?: string;
+  className: string;
+  variant?: string;
+}
+
 const Block: React.FC<StyledProps<BlockProps>> = ({
   id,
   className,
   defaultValue,
   options,
-  placeholder,
+  label,
+  ...rest
 }) => {
   const [state, dispatch] = React.useReducer(
     State.selectStateReducer,
     State.defaultSelectContext,
     state => {
-      const selected = defaultValue;
+      const value = defaultValue;
       const selectId = id
         ? id
         : `select_${Math.random()
             .toString(36)
             .substring(7)}`;
-      return { ...state, selected, selectId };
+      return { ...state, value, selectId };
     }
   );
 
-  const selectedOption = state.selected
-    ? options.find(o => o.value === state.selected)
+  const selectedOption = state.value
+    ? options.find(o => o.value === state.value)
     : null;
 
   const selectoptions = selectedOption
@@ -178,15 +173,16 @@ const Block: React.FC<StyledProps<BlockProps>> = ({
   return (
     <State.SelectContext.Provider value={[state, dispatch]}>
       <ClickBlockWrapper className={className}>
-        <SelectBlock {...{ selectoptions, placeholder }} />
+        <SelectBlock {...{ selectoptions, label, ...rest }} />
 
-        <IconBlock
+        <div
+          className="icon_block"
           onClick={_ => {
             dispatch({ type: State.ActionType.EXPAND });
           }}
         >
           <Icon.Arrowdown />
-        </IconBlock>
+        </div>
       </ClickBlockWrapper>
     </State.SelectContext.Provider>
   );

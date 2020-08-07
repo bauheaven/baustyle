@@ -7,12 +7,12 @@ import {Box} from '../src'
 
 const ThemeDecorator = (storyFn: any) => (<>
 <ThemeProvider theme={theme}>  
-  <Box bg="bg.primary" p={3} >
+  <Box bg="bg.primary" p={4} >
     {storyFn()}
   </Box>
 </ThemeProvider>
 <ThemeProvider theme={{...theme, colors: theme.colors.modes.dark, shadows: theme.shadows.modes.dark}}>  
-  <Box bg="bg.primary" p={3}>
+  <Box bg="bg.primary" p={4}>
   {storyFn()}
   </Box>
 </ThemeProvider>

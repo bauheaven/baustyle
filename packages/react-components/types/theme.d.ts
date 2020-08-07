@@ -1,4 +1,4 @@
-import { Theme as StyledSystemTheme } from 'styled-system';
+import { Theme as StyledSystemTheme , TLengthStyledSystem as TLength} from 'styled-system';
 import { SystemStyleObject } from '@styled-system/css';
 import * as CSS from 'csstype';
 
@@ -18,9 +18,10 @@ export type PropByModes<T> = ObjectOrArray<T> & {
 
 
 
-export interface Theme extends Omit<StyledSystemTheme, 'colors' | 'shadows' | 'sizes'> {
+export interface Theme extends Omit<StyledSystemTheme, 'colors' | 'shadows' | 'sizes' | 'radii'> {
 
     sizes: ObjectOrArray<CSS.HeightProperty<{}> | CSS.WidthProperty<{}>>
+    radii: ObjectOrArray<CSS.BorderRadiusProperty<TLength>>;
 
     colors: PropByModes<CSS.ColorProperty>
     shadows?: PropByModes<CSS.BoxShadowProperty>

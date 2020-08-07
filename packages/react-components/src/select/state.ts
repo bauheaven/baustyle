@@ -4,7 +4,7 @@ interface SelectState {
   expanded: boolean;
   focused: boolean;
   selectId?: string;
-  selected?: string;
+  value?: string;
 }
 
 export enum ActionType {
@@ -35,7 +35,6 @@ export const selectStateReducer = (
   state: SelectState,
   action: Action
 ): SelectState => {
-  console.log('action', action);
   switch (action.type) {
     case ActionType.FOCUS:
       return { ...state, focused: true };
@@ -44,7 +43,7 @@ export const selectStateReducer = (
     case ActionType.COLLAPSE:
       return { ...state, expanded: false, focused: false };
     case ActionType.SELECT:
-      return { ...state, selected: action.value, expanded: false };
+      return { ...state, value: action.value, expanded: false };
   }
 
   return state;

@@ -5,7 +5,7 @@ const classic = {
   fontFamily: 'body',
   position: 'relative',
   color: 'text.secondary',
-  borderRadius: '4px',
+  borderRadius: 'base',
 
   bg: 'bg.secondary',
   border: '2px solid',
@@ -16,6 +16,12 @@ const classic = {
   alignItem: 'center',
   justifyContent: 'space-between',
   outline: 0,
+
+  '.icon_block': {
+    p: 2,
+    height: 2,
+    svg: { mt: '-3px' },
+  },
   '&.focused': {
     border: '2px solid',
     borderColor: 'ui.focus',
@@ -41,23 +47,23 @@ const classic = {
     '[role="listbox"]': {
       '.expanded_listbox': {
         left: '-20px',
-        width: 'calc(100% + 20px)',
+        width: 'calc(100% + 20px + 2px)',
         display: 'block',
         zIndex: 1,
         bg: 'bg.primary',
         boxShadow: (theme: Theme) => `1px 1px 1px ${theme.colors.ui.tertiary}`,
 
-        borderRadius: '4px',
+        borderRadius: 'base',
         '[role="option"]': {
           position: 'relative',
           pl: (theme: Theme) => `${(theme.space as number[])[2] + 20}px`,
           '&:first-child': {
-            borderTopLeftRadius: '4px',
-            borderTopRightRadius: '4px',
+            borderTopLeftRadius: 'base',
+            borderTopRightRadius: 'base',
           },
           '&:last-child': {
-            borderBottomLeftRadius: '4px',
-            borderBottomRightRadius: '4px',
+            borderBottomLeftRadius: 'base',
+            borderBottomRightRadius: 'base',
           },
           '.left_icon': {
             position: 'absolute',
@@ -77,8 +83,29 @@ const classic = {
   },
 };
 
+const material = {
+  fontFamily: 'body',
+  color: 'text.secondary',
+  position: 'relative',
+  outline: 0,
+  display: 'flex',
+  justifyContent: 'space-between',
+
+  '[role="listbox"]': {
+    width: '100%',
+    '[role="option"]': {
+      height: 1,
+      p: 2,
+    },
+  },
+  '.expanded_listbox': {
+    display: 'none',
+    position: 'absolute',
+  },
+};
 const variants = {
   classic,
+  material,
 };
 
 export default variant({

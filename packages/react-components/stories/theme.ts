@@ -69,7 +69,7 @@ const theme = {
     space,
     colors: {
         brand: {
-          primary: '#0FACAC',
+          primary: '#67aeff',
           secondary: '#A0DC8A',
           accent: '#A94B6F',
           muted: '#E7E7FB',
@@ -150,6 +150,9 @@ const theme = {
             input_focus: '6px 6px 13px #202020, -6px -6px 13px #565656',                    
           }
       }
+    },
+    radii: {
+      base: '4px'
     }
 }
 
@@ -259,7 +262,8 @@ export default {
           animation-name: ${animations.fadeIn};
           animation-timing-function: ease;
           `        
-    }
+    },
+
     
 }
 

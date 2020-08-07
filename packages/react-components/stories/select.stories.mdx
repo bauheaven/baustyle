@@ -4,9 +4,9 @@ import {Select, Input, Box} from '../src'
 <Meta title="Components/Form/Select"/>
 
 
-# Input
+# Select
 
-Form input component
+Form select component
 
 
 
@@ -16,21 +16,23 @@ Form input component
 <Preview><Story name="Classic">
         <Box>
             <Box mb={4}>
-                <Select defaultValue="en" options={[{value: 'en', label: 'En'}, {value: 'de', label:'De'}]} />      
+                <Select defaultValue="en" onChange={(e) => console.log('event onchange', e)} options={[{value: 'en', label: 'English'}, {value: 'de', label:'Deutsch'}, {value: 'ru', label: 'Русский'}]} />      
             </Box>
             <Box mb={2}>
-                <Select options={[{value: 'en', label: 'En'}, {value: 'de', label:'De'}]} />
+                <Select options={[{value: 'en', label: 'English'}, {value: 'de', label:'Deutsch'}, {value: 'ru', label: 'Русский'}]} />
                 </Box>
         </Box>
           
     </Story></Preview>
 
-<Preview>
-     <select>
-        <option>test1</option>
-        <option>test2</option>
-        <option>test3</option>
-        <option>test4</option>
-        <option>test5</option>
-    </select>
-</Preview>
+<Preview><Story name="Material">
+        <Box>
+            <Box mb={4}>
+                <Select variant="material" label="Language" defaultValue="en" options={[{value: 'en', label: 'English'}, {value: 'de', label:'Deutsch'}, {value: 'ru', label: 'Русский'}]} />      
+            </Box>
+            <Box mb={2}>
+                <Select variant="material" label="Language" options={[{value: 'en', label: 'English'}, {value: 'de', label:'Deutsch'}, {value: 'ru', label: 'Русский'}]} />
+                </Box>
+        </Box>
+          
+    </Story></Preview>
