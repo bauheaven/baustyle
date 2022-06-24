@@ -61,7 +61,7 @@
     "enzyme-adapter-react-16": "^1.15.2",
     "husky": "^4.2.5",
     "jest": "^26.1.0",
-    "jsdom": "16.3.0",
+    "jsdom": "16.5.0",
     "jsdom-global": "3.0.2",
     "polished": "^3.6.5",
     "react": "^16.13.1",
