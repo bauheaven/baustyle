@@ -71,7 +71,7 @@
     "styled-components": "^5.1.1",
     "styled-system": "^5.1.5",
     "ts-loader": "^8.0.1",
-    "tsdx": "^0.13.2",
+    "tsdx": "^2.0.0",
     "tslib": "^2.0.0",
     "typescript": "^3.9.6"
   },
